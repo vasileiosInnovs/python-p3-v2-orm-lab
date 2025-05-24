@@ -19,6 +19,39 @@ class Review:
             f"<Review {self.id}: {self.year}, {self.summary}, "
             + f"Employee: {self.employee_id}>"
         )
+    
+    @property
+    def year(self):
+        return self._year
+    
+    @year.setter
+    def year(self, year):
+        if not isinstance(year, int) or year < 2000:
+            raise ValueError("Year must be an integer greater than or equal to 2000.")
+        self._year = year
+
+    @property
+    def summary(self):
+        return self._summary
+    
+    @summary.setter
+    def summary(self, value):
+        if not isinstance(value, str) or len(value.strip()) == 0:
+            raise ValueError("Summary must be a non-empty string.")
+        self._summary = value
+
+    @property
+    def employee_id(self):
+        return self._employee_id
+    
+    @employee_id.setter
+    def employee_id(self, employee_id):
+        if not isinstance(employee_id, int)or employee_id <= 0:
+            raise ValueError("Employee ID must be a positive integer")
+        if not Employee.find_by_id(employee_id):
+            raise ValueError("Employee with that ID does not exist")
+        self._employee_id = employee_id
+
 
     @classmethod
     def create_table(cls):
